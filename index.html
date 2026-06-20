@@ -23,25 +23,20 @@ scroll-behavior:smooth;
 }
 
 body{
-background:#fffaf8;
-color:#444;
-overflow-x:hidden;
-
-/* רקע תמונה + שכבת רכות */
-background:
+background-image:
 linear-gradient(rgba(255,255,255,0.78), rgba(255,255,255,0.78)),
-url("background.JPG");
+url("./background.jpg");
 
-background-size: cover;
-background-position: center;
-background-repeat: no-repeat;
-background-attachment: fixed;
+background-size:cover;
+background-position:center;
+background-repeat:no-repeat;
+background-attachment:fixed;
 }
 
-  @media (max-width: 768px){
-
+@media (max-width:768px){
 body{
-background-attachment: scroll; /* 🔥 זה הפתרון לנייד */
+background-attachment:scroll;
+}
 }
 
 /* HERO */

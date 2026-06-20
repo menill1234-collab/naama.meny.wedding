@@ -27,14 +27,15 @@ background:#fffaf8;
 color:#444;
 overflow-x:hidden;
 
-/* 🌸 תמונת רקע חתונתית */
+/* רקע תמונה + שכבת רכות */
 background:
 linear-gradient(rgba(255,255,255,0.78), rgba(255,255,255,0.78)),
-url("background.JPG");
+url("background.jpg");
 
-background-size:cover;
-background-position:center;
-background-attachment:fixed;
+background-size: cover;
+background-position: center;
+background-repeat: no-repeat;
+background-attachment: fixed;
 }
 
 
@@ -382,3 +383,11 @@ document.getElementById("countdown").innerHTML =
 
 </body>
 </html>
+
+@media (max-width: 768px){
+
+body{
+background-attachment: scroll; /* 🔥 זה הפתרון לנייד */
+}
+
+}

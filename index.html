@@ -286,7 +286,7 @@ to{opacity:1;transform:translateY(0);}
 
 .hero h1{font-size:2.6rem;}
 
-.hero h2{font-size:1.1rem;}
+.hero h2{font-size:1.5rem;}
 
 .section{padding:50px 15px;}
 
@@ -400,22 +400,29 @@ onclick="alert('תודה רבה על הברכה ❤️')">
 
 <script>
 
-const weddingDate = new Date("2026-09-22T19:00:00").getTime();
+const weddingDate = new Date("2026-09-22T18:30:00").getTime();
 
 setInterval(() => {
 
 const now = new Date().getTime();
 const distance = weddingDate - now;
 
-if(distance < 0){
+if(distance <= 0){
 document.getElementById("countdown").innerHTML = "היום הגדול הגיע!";
 return;
 }
 
-const days = Math.floor(distance / (1000*60*60*24));
+const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
 document.getElementById("countdown").innerHTML =
-"נותרו " + days + " ימים";
+"נותרו " + 
+days + " ימים " +
+hours + " שעות " +
+minutes + " דקות " +
+seconds + " שניות ❤️";
 
 }, 1000);
 

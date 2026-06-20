@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>החתונה של נעמה ומני</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Assistant',sans-serif;
+}
+
+html{
+scroll-behavior:smooth;
+}
+
+body{
+background:#fffaf8;
+color:#444;
+overflow-x:hidden;
+
+/* רקע פרחוני עדין */
+background-image:
+radial-gradient(circle at 10% 20%, rgba(200,155,99,0.10) 0%, transparent 30%),
+radial-gradient(circle at 80% 70%, rgba(184,135,70,0.10) 0%, transparent 35%),
+radial-gradient(circle at 50% 40%, rgba(255,192,203,0.08) 0%, transparent 40%);
+background-attachment: fixed;
+}
+
+/* HERO */
+
+.hero{
+height:85vh;
+background:
+linear-gradient(rgba(0,0,0,.35),rgba(0,0,0,.35)),
+url("main.jpg");  /* ✅ בלי תיקייה */
+
+background-size:cover;
+background-position:center;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+color:white;
+padding:20px;
+}
+
+.hero-content{
+animation:fadeIn 1.5s ease;
+}
+
+.hero h1{
+font-size:4rem;
+font-weight:800;
+}
+
+.hero h2{
+font-size:1.6rem;
+font-weight:300;
+margin-top:10px;
+}
+
+.date{
+margin-top:15px;
+font-size:1.4rem;
+}
+
+.countdown{
+margin-top:20px;
+font-size:1.5rem;
+font-weight:700;
+background:rgba(255,255,255,.15);
+padding:10px 20px;
+border-radius:30px;
+display:inline-block;
+backdrop-filter:blur(8px);
+}
+
+.section{
+max-width:1100px;
+margin:auto;
+padding:70px 20px;
+}
+
+.section-title{
+text-align:center;
+font-size:2.4rem;
+margin-bottom:35px;
+color:#b88746;
+}
+
+.story{
+max-width:800px;
+margin:auto;
+text-align:center;
+line-height:2;
+font-size:1.15rem;
+}
+
+/* PAYBOX */
+
+.payment-box{
+background:white;
+padding:40px;
+border-radius:30px;
+box-shadow:0 15px 40px rgba(0,0,0,.08);
+text-align:center;
+}
+
+.payment-box p{
+font-size:1.15rem;
+margin-bottom:30px;
+line-height:1.8;
+}
+
+.paybox-main{
+display:block;
+width:100%;
+max-width:500px;
+margin:0 auto 20px;
+padding:22px;
+font-size:1.4rem;
+font-weight:800;
+text-decoration:none;
+background:linear-gradient(135deg,#00c853,#00e676);
+color:white;
+border-radius:60px;
+box-shadow:0 10px 25px rgba(0,200,83,.35);
+transition:.3s;
+}
+
+.paybox-main:hover{
+transform:scale(1.05);
+}
+
+.bit-btn{
+display:inline-block;
+padding:14px 30px;
+background:#f3f3f3;
+color:#555;
+text-decoration:none;
+border-radius:40px;
+font-weight:700;
+transition:.3s;
+}
+
+.bit-btn:hover{
+background:#e8e8e8;
+}
+
+/* GALLERY */
+
+.gallery{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:25px;
+}
+
+.polaroid{
+background:white;
+padding:12px;
+border-radius:18px;
+box-shadow:0 10px 25px rgba(0,0,0,.12);
+transform:rotate(-1deg);
+transition:.3s;
+}
+
+.polaroid:nth-child(even){
+transform:rotate(1deg);
+}
+
+.polaroid:hover{
+transform:scale(1.03) rotate(0deg);
+}
+
+.polaroid img{
+width:100%;
+height:280px;
+object-fit:cover;
+border-radius:12px;
+display:block;
+}
+
+/* BRACHA */
+
+.greeting-box{
+background:white;
+padding:30px;
+border-radius:25px;
+box-shadow:0 10px 25px rgba(0,0,0,.08);
+max-width:700px;
+margin:auto;
+}
+
+textarea{
+width:100%;
+height:150px;
+padding:15px;
+border:1px solid #ddd;
+border-radius:15px;
+font-size:1rem;
+resize:none;
+}
+
+.send-btn{
+margin-top:15px;
+padding:14px 30px;
+border:none;
+background:#c89b63;
+color:white;
+font-size:1rem;
+border-radius:40px;
+cursor:pointer;
+}
+
+footer{
+padding:40px;
+text-align:center;
+color:#777;
+}
+
+/* ANIMATION */
+
+@keyframes fadeIn{
+from{opacity:0;transform:translateY(20px);}
+to{opacity:1;transform:translateY(0);}
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.hero{height:75vh;}
+
+.hero h1{font-size:2.6rem;}
+
+.hero h2{font-size:1.1rem;}
+
+.section{padding:50px 15px;}
+
+.section-title{font-size:1.9rem;}
+
+.story{font-size:1rem;}
+
+.polaroid img{height:220px;}
+
+.paybox-main{font-size:1.2rem;padding:18px;}
+}
+
+</style>
+</head>
+
+<body>
+
+<section class="hero">
+<div class="hero-content">
+
+<h1>נעמה ומני</h1>
+<h2>מתחתנים ❤️</h2>
+
+<div class="date">22.09.2026</div>
+
+<div id="countdown" class="countdown"></div>
+
+</div>
+</section>
+
+<section class="section">
+
+<h2 class="section-title">כמה מילים מאיתנו</h2>
+
+<div class="story">
+משפחה וחברים אהובים,<br><br>
+
+אנחנו מתרגשים לחגוג איתכם את היום המיוחד שלנו.<br>
+הנוכחות שלכם היא המתנה הגדולה ביותר עבורנו.<br><br>
+
+למי שמעוניין לשמח אותנו גם במתנה,<br>
+ניתן להעביר באמצעות PayBox או Bit.
+</div>
+
+</section>
+
+<section class="section">
+
+<h2 class="section-title">מתנה לחתונה</h2>
+
+<div class="payment-box">
+
+<p>
+💚 הדרך המועדפת היא PayBox.<br>
+תודה על האהבה וההתרגשות שאתם חולקים איתנו.
+</p>
+
+<a href="https://links.payboxapp.com/EBH8rNbFR3b"
+target="_blank" class="paybox-main">
+להעברת מתנה ב-PayBox 💚
+</a>
+
+<a href="https://www.bitpay.co.il/app/me/20951EAE-DE69-6F41-196D-959D29C6C9065222"
+target="_blank" class="bit-btn">
+אפשר גם באמצעות Bit
+</a>
+
+</div>
+
+</section>
+
+<section class="section">
+
+<h2 class="section-title">הגלריה שלנו</h2>
+
+<div class="gallery">
+
+<!-- ✅ בלי תיקיית images -->
+<div class="polaroid"><img src="photo1.jpg"></div>
+<div class="polaroid"><img src="photo2.jpg"></div>
+<div class="polaroid"><img src="photo3.jpg"></div>
+<div class="polaroid"><img src="photo4.jpg"></div>
+
+</div>
+
+</section>
+
+<section class="section">
+
+<h2 class="section-title">ברכה לזוג</h2>
+
+<div class="greeting-box">
+
+<textarea placeholder="כתבו כאן ברכה לזוג ❤️"></textarea>
+
+<button class="send-btn"
+onclick="alert('תודה רבה על הברכה ❤️')">
+שליחת ברכה
+</button>
+
+</div>
+
+</section>
+
+<footer>
+נעמה ומני ❤️ 22.09.2026
+</footer>
+
+<script>
+
+const weddingDate = new Date("2026-09-22T19:00:00").getTime();
+
+setInterval(() => {
+
+const now = new Date().getTime();
+const distance = weddingDate - now;
+
+if(distance < 0){
+document.getElementById("countdown").innerHTML = "היום הגדול הגיע ❤️";
+return;
+}
+
+const days = Math.floor(distance / (1000*60*60*24));
+const hours = Math.floor((distance % (1000*60*60*24)) / (1000*60*60));
+
+document.getElementById("countdown").innerHTML =
+"נותרו " + days + " ימים ו-" + hours + " שעות";
+
+}, 1000);
+
+</script>
+
+</body>
+</html>

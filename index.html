@@ -38,7 +38,11 @@ background-repeat: no-repeat;
 background-attachment: fixed;
 }
 
+  @media (max-width: 768px){
 
+body{
+background-attachment: scroll; /* 🔥 זה הפתרון לנייד */
+}
 
 /* HERO */
 
@@ -258,12 +262,6 @@ to{opacity:1;transform:translateY(0);}
 .polaroid img{height:220px;}
 
 .paybox-main{font-size:1.2rem;padding:18px;}
-}
-
-@media (max-width: 768px){
-
-body{
-background-attachment: scroll; /* 🔥 זה הפתרון לנייד */
 }
 
 }

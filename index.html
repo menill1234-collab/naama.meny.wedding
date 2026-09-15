@@ -425,16 +425,24 @@ target="_blank" class="bit-btn">
 
 <div class="greeting-box">
 
+<!-- אלמנט נסתר לטיפול בשליחה ללא רענון עמוד -->
+<iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted) {onGreetingSuccess();}"></iframe>
+
+<!-- טופס שליחה תקני ל-Google Apps Script -->
+<form id="greetingForm" action="https://script.google.com/macros/s/AKfycbzZxQShavSgF_XDxUSD5ElFG_TPwxq8xQjrlizlQRzvuT4ymcAjvvvPCnO01D7KISSp/exec" method="POST" target="hidden_iframe" onsubmit="submitted=true;">
+
 <!-- שדה שם האורח -->
-<input type="text" id="guestName" class="greeting-input" placeholder="השם שלכם" />
+<input type="text" name="name" id="guestName" class="greeting-input" placeholder="השם שלכם" />
 
 <!-- שדה תוכן הברכה -->
-<textarea id="guestGreeting" placeholder="כתבו כאן ברכה לזוג :)"></textarea>
+<textarea name="greeting" id="guestGreeting" placeholder="כתבו כאן ברכה לזוג :)"></textarea>
 
 <!-- כפתור שליחה -->
-<button class="send-btn" id="submitBtn" onclick="sendGreeting()">
+<button type="submit" class="send-btn" id="submitBtn">
 שליחת ברכה
 </button>
+
+</form>
 
 </div>
 
@@ -476,52 +484,32 @@ updateCountdown();
 setInterval(updateCountdown, 1000);
 
 
-async function sendGreeting() {
-  const nameInput = document.getElementById('guestName');
+// מנגנון שליחת ברכה
+var submitted = false;
+
+document.getElementById('greetingForm').addEventListener('submit', function(e) {
   const greetingInput = document.getElementById('guestGreeting');
-  const btn = document.getElementById('submitBtn');
-
-  const name = nameInput.value.trim();
-  const greeting = greetingInput.value.trim();
-
-  // בדיקת תקינות
-  if (!greeting) {
+  if (!greetingInput.value.trim()) {
     alert('אנא כתבו ברכה לפני השליחה');
-    return;
+    e.preventDefault();
+    submitted = false;
+    return false;
   }
-
-  const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzZxQShavSgF_XDxUSD5ElFG_TPwxq8xQjrlizlQRzvuT4ymcAjvvvPCnO01D7KISSp/exec';
-
+  
+  const btn = document.getElementById('submitBtn');
   btn.disabled = true;
   btn.innerText = 'שולח...';
+});
 
-  try {
-    // שליחה בצורת URLencoded עוקפת בעיות דפדפנים בצורה נורא יציבה
-    const formData = new URLSearchParams();
-    formData.append('name', name || 'אנונימי');
-    formData.append('greeting', greeting);
-
-    await fetch(GOOGLE_SCRIPT_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },
-      body: formData.toString()
-    });
-
-    alert('תודה רבה על הברכה! ❤️');
-    
-    nameInput.value = '';
-    greetingInput.value = '';
-
-  } catch (error) {
-    alert('אירעה שגיאה בשליחת הברכה, אנא נסו שוב.');
-    console.error('Error:', error);
-  } finally {
-    btn.disabled = false;
-    btn.innerText = 'שליחת ברכה';
-  }
+function onGreetingSuccess() {
+  alert('תודה רבה על הברכה! ❤️');
+  document.getElementById('guestName').value = '';
+  document.getElementById('guestGreeting').value = '';
+  
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = false;
+  btn.innerText = 'שליחת ברכה';
+  submitted = false;
 }
 
 </script>

@@ -498,11 +498,12 @@ async function sendGreeting() {
   btn.innerText = 'שולח...';
 
   try {
+    // שליחה בפורמט text/plain עוקפת מגבלות דפדפנים ומבטיחה שהמידע יגיע לשרת
     await fetch(GOOGLE_SCRIPT_URL, {
       method: 'POST',
       mode: 'no-cors',
       headers: { 
-        'Content-Type': 'application/json' 
+        'Content-Type': 'text/plain;charset=utf-8' 
       },
       body: JSON.stringify({ 
         name: name || "אנונימי", 

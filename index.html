@@ -23,7 +23,7 @@ scroll-behavior:smooth;
 }
 
 /* =========================
-   🎯 רקע יציב (תיקון לנייד + מחשב)
+   🎯 רקע יציב
 ========================= */
 
 body{
@@ -32,7 +32,6 @@ overflow-x:hidden;
 background:transparent;
 }
 
-/* שכבת רקע קבועה */
 body::before{
 content:"";
 position:fixed;
@@ -53,7 +52,6 @@ background-repeat:no-repeat;
 transform:translateZ(0);
 }
 
-/* תיקון לנייד */
 @media(max-width:768px){
 body::before{
 background-position:center top;
@@ -225,7 +223,7 @@ display:block;
 }
 
 /* =========================
-   BRACHA
+   BRACHA (טופס ברכות מעודכן)
 ========================= */
 
 .greeting-box{
@@ -237,6 +235,21 @@ max-width:700px;
 margin:auto;
 }
 
+.greeting-input{
+width:100%;
+padding:15px;
+border:1px solid #ddd;
+border-radius:15px;
+font-size:1rem;
+margin-bottom:15px;
+outline:none;
+transition: border-color 0.3s;
+}
+
+.greeting-input:focus, textarea:focus {
+border-color: #c89b63;
+}
+
 textarea{
 width:100%;
 height:150px;
@@ -245,6 +258,8 @@ border:1px solid #ddd;
 border-radius:15px;
 font-size:1rem;
 resize:none;
+outline:none;
+transition: border-color 0.3s;
 }
 
 .send-btn{
@@ -256,6 +271,18 @@ background:#c89b63;
 color:white;
 border-radius:40px;
 cursor:pointer;
+font-size: 1rem;
+font-weight: 600;
+transition: background 0.3s;
+}
+
+.send-btn:hover{
+background:#b88746;
+}
+
+.send-btn:disabled{
+background:#ccc;
+cursor:not-allowed;
 }
 
 /* =========================
@@ -298,15 +325,12 @@ to{opacity:1;transform:translateY(0);}
 .polaroid img{height:220px;}
 
 .paybox-main{font-size:1.2rem;padding:18px;}
-}
-
-@media(max-width:768px){
 
 .greeting-box{
 padding:25px 15px;
 }
 
-textarea{
+.greeting-input, textarea{
 font-size:1.15rem;
 line-height:1.6;
 }
@@ -348,7 +372,7 @@ font-size:1.15rem;
 ניתן להעביר באמצעות PayBox או Bit.
 
 <br><br> 
-אוהבים, מני ונעמה🤍<br>   
+אוהבים, מני ונעמה🤍<br>    
 </div>
 
 </section>
@@ -394,18 +418,22 @@ target="_blank" class="bit-btn">
 
 </section>
 
+<!-- סקציית הברכה המעודכנת -->
 <section class="section">
 
 <h2 class="section-title">ברכה לזוג</h2>
 
 <div class="greeting-box">
 
-<textarea placeholder="כתבו כאן ברכה לזוג :)"></textarea>
+<!-- שדה שם האורח -->
+<input type="text" id="guestName" class="greeting-input" placeholder="השם שלכם" />
 
-<button class="send-btn"
-onclick="alert('תודה רבה על הברכה ❤️')">
+<!-- שדה תוכן הברכה -->
+<textarea id="guestGreeting" placeholder="כתבו כאן ברכה לזוג :)"></textarea>
+
+<!-- כפתור שליחה שמפעיל את הפונקציה -->
+<button class="send-btn" id="submitBtn" onclick="sendGreeting()">
 שליחת ברכה
-
 </button>
 
 </div>
@@ -418,7 +446,8 @@ onclick="alert('תודה רבה על הברכה ❤️')">
 
 <script>
 
-const weddingDate = new Date("2026-09-22T18:30:00").getTime();
+// טיימר ספירה לאחור
+const weddingDate = new Date("2026-09-22T19:00:00").getTime();
 
 setInterval(() => {
 
@@ -443,6 +472,59 @@ minutes + " דקות, ו-" +
 seconds + " שניות";
 
 }, 1000);
+
+
+// פונקציה לשליחת הברכה ל-Google Sheets
+async function sendGreeting() {
+  const nameInput = document.getElementById('guestName');
+  const greetingInput = document.getElementById('guestGreeting');
+  const btn = document.getElementById('submitBtn');
+
+  const name = nameInput.value.trim();
+  const greeting = greetingInput.value.trim();
+
+  // בדיקת תקינות
+  if (!greeting) {
+    alert('אנא כתבו ברכה לפני השליחה');
+    return;
+  }
+
+  // ⚠️ הדביקו כאן את כתובת ה-URL שקיבלתם מ-Google Apps Script ⚠️
+  const GOOGLE_SCRIPT_URL = https://script.google.com/macros/s/AKfycbzZxQShavSgF_XDxUSD5ElFG_TPwxq8xQjrlizlQRzvuT4ymcAjvvvPCnO01D7KISSp/exec;
+
+  // שינוי מצב כפתור בזמן השליחה
+  btn.disabled = true;
+  btn.innerText = 'שולח...';
+
+  try {
+    await fetch(GOOGLE_SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors', // מעקף CORS עבור Google Apps Script
+      headers: { 
+        'Content-Type': 'application/json' 
+      },
+      body: JSON.stringify({ 
+        name: name || "אנונימי", 
+        greeting: greeting 
+      })
+    });
+
+    // אישור והודעה למשתמש
+    alert('תודה רבה על הברכה! ❤️');
+    
+    // איפוס השדות
+    nameInput.value = '';
+    greetingInput.value = '';
+
+  } catch (error) {
+    alert('אירעה שגיאה בשליחת הברכה, אנא נסו שוב.');
+    console.error('Error:', error);
+  } finally {
+    // החזרת הכפתור למצבו הרגיל
+    btn.disabled = false;
+    btn.innerText = 'שליחת ברכה';
+  }
+}
 
 </script>
 

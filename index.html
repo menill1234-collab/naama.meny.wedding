@@ -476,7 +476,6 @@ updateCountdown();
 setInterval(updateCountdown, 1000);
 
 
-// פונקציה לשליחת הברכה ל-Google Sheets
 async function sendGreeting() {
   const nameInput = document.getElementById('guestName');
   const greetingInput = document.getElementById('guestGreeting');
@@ -490,31 +489,29 @@ async function sendGreeting() {
     alert('אנא כתבו ברכה לפני השליחה');
     return;
   }
-                           
+
   const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzZxQShavSgF_XDxUSD5ElFG_TPwxq8xQjrlizlQRzvuT4ymcAjvvvPCnO01D7KISSp/exec';
 
-  // שינוי מצב כפתור בזמן השליחה
   btn.disabled = true;
   btn.innerText = 'שולח...';
 
   try {
-    // שליחה בפורמט text/plain עוקפת מגבלות דפדפנים ומבטיחה שהמידע יגיע לשרת
+    // שליחה בצורת URLencoded עוקפת בעיות דפדפנים בצורה נורא יציבה
+    const formData = new URLSearchParams();
+    formData.append('name', name || 'אנונימי');
+    formData.append('greeting', greeting);
+
     await fetch(GOOGLE_SCRIPT_URL, {
       method: 'POST',
       mode: 'no-cors',
-      headers: { 
-        'Content-Type': 'text/plain;charset=utf-8' 
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
       },
-      body: JSON.stringify({ 
-        name: name || "אנונימי", 
-        greeting: greeting 
-      })
+      body: formData.toString()
     });
 
-    // אישור והודעה למשתמש
     alert('תודה רבה על הברכה! ❤️');
     
-    // איפוס השדות
     nameInput.value = '';
     greetingInput.value = '';
 
@@ -522,7 +519,6 @@ async function sendGreeting() {
     alert('אירעה שגיאה בשליחת הברכה, אנא נסו שוב.');
     console.error('Error:', error);
   } finally {
-    // החזרת הכפתור למצבו הרגיל
     btn.disabled = false;
     btn.innerText = 'שליחת ברכה';
   }
